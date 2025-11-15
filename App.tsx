@@ -56,10 +56,7 @@ const App: React.FC = () => {
   // Initialize or re-initialize the chat instance when the active session changes
   useEffect(() => {
     if (!activeSession) return;
-    if (!process.env.API_KEY) {
-      setError("API_KEY environment variable not set. Please configure it to use the application.");
-      return;
-    }
+    
     setError(null);
     try {
         const messagesForHistory = [...activeSession.messages];
@@ -69,7 +66,7 @@ const App: React.FC = () => {
             messagesForHistory.pop();
         }
 
-        const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
+        const ai = new GoogleGenAI({ apiKey: "AIzaSyDXfD0tpfL9MD-93OdsOTN2GcfoUNr3YXo" });
         const newChat = ai.chats.create({
           model: activeSession.model,
           history: messagesForHistory.map(msg => ({
@@ -194,7 +191,7 @@ const App: React.FC = () => {
                 {error ? (
                     <div className="flex-1 flex items-center justify-center text-center p-4">
                         <div className="bg-red-100 border border-red-200 text-red-700 p-4 rounded-lg">
-                            <h2 className="font-bold text-lg mb-2 text-red-900">Configuration Error</h2>
+                            <h2 className="font-bold text-lg mb-2 text-red-900">Application Error</h2>
                             <p>{error}</p>
                         </div>
                     </div>
